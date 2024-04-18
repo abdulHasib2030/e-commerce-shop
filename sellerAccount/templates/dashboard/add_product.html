@@ -1,0 +1,179 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+<form method="post"  >
+{% csrf_token %}
+      <div class="col-12">
+        <div class="callout callout-info">
+          <h5>ADD PRODUCT</h5>
+
+        </div>
+        <!-- Main content -->
+
+          <div class="row">
+            <div class="col-12">
+              <h4> 
+                  <button type="submit" class="btn btn-primary">
+                    Publish product
+                  </button>
+               
+              </h4>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- Table row -->
+
+ <!-- SELECT2 EXAMPLE -->
+ <div class="card card-default">
+  <div class="card-header">
+    <h3 class="card-title">Product Information</h3>
+
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-tool" data-card-widget="remove">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name" >
+        </div>
+       
+      </div>
+      <!-- /.col -->
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" id="" cols="30" rows="10" placeholder="Enter Description" class="form-control"></textarea>
+        </div>
+      </div>
+<div class="card-body" id="size_add">
+      <div class="row" >
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Size</label>
+          <select name="size" class="form-control " style="width: 100%;">
+            <option selected="selected">Select Size</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-8">
+      <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" name="quantity" class="form-control" placeholder="Enter Quantity">
+        </div>
+      </div> 
+   </div>   
+      
+</div>
+<div>
+<p class="btn btn-info" id="size_plus"> <i class="fas fa-plus"></i> Add another option</p>
+</div>
+     
+    </div>
+ <!-- /.col -->
+    <!-- /.row -->
+  </div>
+  <!-- /.card-body -->
+
+</div>
+<!-- /.card -->
+
+<!-- SELECT2 EXAMPLE -->
+<div class="card card-default">
+  <div class="card-header">
+
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-tool" data-card-widget="remove">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" class="form-control " style="width: 100%;">
+           {% for i in categorys %}
+            <option>{{i.category_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <!-- /.form-group -->
+    
+        <!-- /.form-group -->
+      </div>
+      
+     
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" name="price" id="" class="form-control">
+        </div>
+        <!-- /.form-group -->
+    
+        <!-- /.form-group -->
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Discount Price</label>
+          <input type="number" class="form-control" name="discount_price">
+        </div>
+        <!-- /.form-group -->
+    
+        <!-- /.form-group -->
+      </div>
+     
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Images</label>
+          <input type="file" name="images" id="" class="form-control">
+        </div>
+        <!-- /.form-group -->
+    
+        <!-- /.form-group -->
+      </div> 
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.card-body -->
+
+</div>
+<!-- /.card -->
+       
+        <!-- /.row -->
+      </div>
+
+  
+</form>   
+ <!-- /.invoice -->
+    </div><!-- /.col -->
+
+
+  </div><!-- /.row -->
+</section>
+
+{% endblock content %}

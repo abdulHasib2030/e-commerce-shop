@@ -1,0 +1,65 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="callout callout-info">
+          <h5> Category List.</h5>
+        
+        </div>
+
+
+        <!-- Main content -->
+        <div class="invoice p-3 mb-3">
+          
+          <div class="row">
+            <div class="col-12">
+              <h4>
+                <a href="{% url 'create_category' seller_user.slug %}">
+                <button class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Category
+                </button>
+                </a>
+              </h4>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  
+                  <th>CATEGORIES</th>
+                  <th>TOTAL PRODUCTS</th>
+             
+                </tr>
+                </thead>
+                <tbody>
+                  {% for i, j in lst.items %}
+
+                <tr>
+
+                  <td>{{i}}</td>
+                  <td>{{j}}</td>
+                 
+                </tr>                     
+                  {% endfor %}    
+                </tbody>
+              </table>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.invoice -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
+
+  
+{% endblock content %}

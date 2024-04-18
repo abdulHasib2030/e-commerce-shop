@@ -1,0 +1,87 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a href="" class="brand-link">
+    
+    <span class="brand-text font-weight-light">THAJ Shopping</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      
+      <div class="info">
+        <a href="" class="d-block">{{seller_user.owner_name}}</a>
+      </div>
+    </div>
+
+    <div class="form-inline">
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a href="#" class="nav-link active">
+            <!-- <i class="far fa-circle nav-icon"></i> -->
+            <p>
+             Products
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{seller_user.get_url }}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Product List{{seller_user.owner_name}}</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{seller_user.get_url_addProduct}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Product</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{seller_user.get_url_categroy }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Category List </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item ">
+          <a href="#" class="nav-link active">
+            <!-- <i class="far fa-circle nav-icon"></i> -->
+            <p>
+             Order
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order List</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./index2.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order Details</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+       
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,65 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="callout callout-info">
+          <h5> Product List.</h5>
+
+        </div>
+
+
+        <!-- Main content -->
+        <div class="invoice p-3 mb-3">
+
+          <div class="row">
+
+          </div>
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+
+                    <th>PRODUCT</th>
+                    <th>CATEGORY</th>
+                    <th>STOCK</th>
+                    <th>QTY</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in products %}
+
+                  <tr>
+
+                    <td>{{i.product_name}}</td>
+                    <td> {{i.category}} </td>
+                    {% if i.is_available %}
+                    <td>Active</td>
+                    {% else %}
+                    <td>Inactive</td>
+                    {% endif %}
+                    <td>{{i.stock}}</td>
+
+                  </tr>
+
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.invoice -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
+
+
+{% endblock content %}

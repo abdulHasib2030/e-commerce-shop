@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <section class="content" style="margin-top: 10rem;" >
+    <div class="register-box container" style="margin: auto;">
+      {% include "../messages.html" %}
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <a href="" class="h1" style="color:#86469C"><b>Sign</b>up</a>
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Register a new account</p>
+    
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input type="text" class="form-control rounded-end" placeholder="Username" name="username">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user p-2"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="email" class="form-control rounded-end" placeholder="Email" name="email">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope p-2"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control rounded-end" placeholder="Password" name="password1">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock p-2"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control rounded-end" placeholder="Retype password" name="password2">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock p-2"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              
+              <!-- /.col -->
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Signup</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+    
+         
+    
+          <a href="{% url 'login' %}" class="text-center">I already have a account</a>
+        </div>
+        <!-- /.form-box -->
+      </div><!-- /.card -->
+    </div>
+      <!-- Form Section end -->
+  
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  
+{% endblock content %}

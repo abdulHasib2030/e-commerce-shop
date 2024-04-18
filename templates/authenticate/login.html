@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+ <div class="login-box container " style="margin:auto; margin-top:10rem;">
+  <!-- /.login-logo -->
+  {% include "../messages.html" %}
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="" class="h1" style="color:#86469C"><b>Log</b>in</a>
+    </div>
+    <div class="card-body">
+      <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control rounded-end"  placeholder="Username" name="username">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user p-2 "></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control rounded-end" placeholder="Password" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock p-2"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+         
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+
+          </div>
+          <div class="col-8">
+            <a href="{% url 'forgotPassword' %}" style="float: right;">Forgot password</a>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+     
+      <p class="mb-0">
+        <a href="{% url 'signup' %}" class="text-center">Signup a new account</a>
+      </p>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+
+
+{% endblock content %}
