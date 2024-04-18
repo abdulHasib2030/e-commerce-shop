@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import random
 
 # Create your views here.
 def _cart_id(request):
@@ -242,8 +243,7 @@ def checkOutView(request, coupon):
     mobile = request.POST['mobile']
     email_address = request.POST['email_address']
     note = request.POST['text']
-    cast_on_delivery = request.POST['cash_on_delivery']
-    # online_payment = request.POST['online_payment']
+    
     
     if first_name == "" or last_name == "" or address == "" or town_city == "" or country == "" or len(str(zipcode)) < 1 or len(str(mobile))  > 11 or len(str(mobile)) < 11 or str(email_address).find('@') == -1:
       messages.success(request, "You not provided all information in billing.")
@@ -252,19 +252,32 @@ def checkOutView(request, coupon):
       
       bill = BillingDetails.objects.create(first_name=first_name, last_name=last_name, address = address, town_city=town_city, country=country, zipcode=zipcode, mobile = mobile, email_address = email_address, note = note)
       quantity = ""
+      total = 0
       for i in cart_item:
+        total += i.product.main_price() * i.quantity
         i.product.stock -= i.quantity
         i.product.save()
         bill.product.add(i.product)
         quantity += str(i.quantity)
         quantity += " "
+      print(total)
+      bill.sub_total = total
       bill.quantity = quantity
       bill.user = request.user
       bill.save()
-      messages.success(request, 'Success Order Complicated.')
+      
       if coupon:
         FirstOrderCoupon.objects.create(user = request.user, available = True)
       cart_item.delete()
+      order_id = "thaj"
+      order_id += str(request.user.id) + str(random.randint(1,1000))
+      try:
+        Order.objects.get(order_id = order_id)
+        Order.objects.create(order_id = order_id + str(random.randint(1,1000), user = request.user))
+      except:
+        Order.objects.create(order_id = order_id, user = request.user)
+
+      
       return render(request, 'order_success.html')
   total, subtotal = 0, 0
   for i in cart_item:

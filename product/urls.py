@@ -9,6 +9,7 @@ urlpatterns = [
     path('products_by_prize/<int:price>/', store, name='products_by_prize'),
     path('<slug:category_slug>/<slug:product_slug>/', Product_detail, name = 'product_detail'),
     path('search/', search, name = 'search'),
+    path('review/', ProductReview, name = 'product')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

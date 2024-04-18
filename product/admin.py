@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Size
+from product.models import *
 
 class ProductAdmin(admin.ModelAdmin):
   prepopulated_fields = {'slug':('product_name',)}
@@ -7,5 +7,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Size)
+admin.site.register(ProductReview)
 
 

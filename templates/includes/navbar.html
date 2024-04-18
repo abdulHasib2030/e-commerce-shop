@@ -1,4 +1,5 @@
 <!-- Navbar start -->
+{% load  static %}
 <div class="container-fluid fixed-top">
 	<div class="container topbar  d-none d-lg-block" style="background-color: #86469C;">
 		<div class="d-flex justify-content-between">
@@ -37,7 +38,7 @@
 
 						</div>
 					</div>
-					<a href="contact.html" class="nav-item nav-link">Contact</a>
+					
 				</div>
 				<div class="d-flex m-3 me-0">
 					<form action="{% url 'search' %}" class="search" style="margin-right: 15px;" method="GET">
@@ -79,7 +80,7 @@
 							<a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
 								aria-expanded="false">
 		
-								<img src="" alt="" width="35" height="35" class="rounded-circle">
+								<img src="{% static 'img/avatar.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
 		
 							</a>
 		

@@ -40,8 +40,10 @@ class BillingDetails(models.Model):
   product = models.ManyToManyField(Product, null=True, related_name= "products")
   quantity = models.CharField(max_length = 200, null=True)
   user = models.ForeignKey(User, on_delete= models.CASCADE, null=True)
-  def sub_total(self):
-    return self.product.price * self.quantity
+  created_at = models.DateField(auto_now_add=True, null=True)
+  
+  sub_total = models.IntegerField(null=True)
+   
   
 class FirstOrderCoupon(models.Model):
   user = models.OneToOneField(User, on_delete= models.CASCADE)

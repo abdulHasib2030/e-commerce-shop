@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from product.models import Product
 from django.core import serializers
 from category.models import Category
+from cart.models import *
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -217,26 +218,25 @@ def resetPassword(request):
 
 @login_required(login_url='login')
 def profileInfo(request):
-  # cart_item = CartItem.objects.filter(user = request.user)
-  # bill = BillingDetails.objects.filter(user=request.user)
-  # ans = bill.product.all()
-  ans = BillingDetails.objects.filter(user = request.user)
-  lst = []
-  quan = []
-  for i in ans:
-    bill = i.product.all()
-    lst.append(bill)
-    temp = i.quantity
-    quan.append(temp)
+  quantity = 0
+  cart_items = CartItem.objects.filter(user=request.user).exists()
+  if cart_items:
+    cart_items = CartItem.objects.filter(user = request.user)
+    for i in cart_items:
+      quantity += i.quantity
+ 
+  bill = BillingDetails.objects.filter(user = request.user)
+  order = Order.objects.filter(user = request.user)
+  for i in bill:
+    for j in i.product.all():
+      print(j.images)
+  
   context = {
-    'order_details':ans,
-    'lst':lst,
-    'quan':quan,
+    'bill':bill,
+    'order':order,
+    'quantity':quantity,
   }
-  for i in quan:
-    print(i)
+  
     
-    # print(quan[i])
-  # for i in ans:
-  #   print(i.product_name)
+
   return render(request, 'profile.html', context)

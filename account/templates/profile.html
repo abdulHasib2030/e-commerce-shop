@@ -12,7 +12,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
               <li class="breadcrumb-item active">User Profile</li>
             </ol>
           </div>
@@ -31,11 +31,11 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{% static 'dist/img/user4-128x128.jpg' %}"
+                       src="{% static 'img/avatar.jpg' %}"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">{{request.user}}</h3>
+                <h3 class="profile-username text-center mt-3">{{request.user}}</h3>
               </div>
               <!-- /.card-body -->
             </div>
@@ -56,6 +56,53 @@
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
 
+<div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Order #</th>
+                  <th scope="col">Placed On</th>
+                  <th scope="col">Items</th>
+                  <th scope="col">Total</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                      <th scope="row">
+                         {% for i in order %}
+                         <p class="mb-0 mt-2">{{i.order_id}}</p>
+                           
+                         {% endfor %}
+                      </th>
+                      <td>
+                        {% for i in bill %}
+                          
+                       
+                          <p class="mb-0 mt-2">{{i.created_at}}</p>
+                           {% endfor %}
+                      </td>
+                      <td>
+                        {% for i in bill  %}
+                        <p>{{i.product.all | length}}</p>
+                        
+                              {% endfor %} 
+                      </td>
+                      <td>
+                        {% for i in bill %}
+                        <p>৳{{i.sub_total}}</p>
+                        {% endfor %}
+                         
+                      </td>
+                     
+                  
+                  </tr>
+                    
+                  
+              </tbody>
+          </table>
+      </div>
                   </div>
               
 

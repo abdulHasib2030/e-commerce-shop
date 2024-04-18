@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
+from product.models import *
 from category.models import Category
-from product.models import Product
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from cart.views import _cart_id
-from cart.models import Cart, CartItem
+from cart.models import *
 from django.contrib import messages
 
 # Create your views here.
@@ -122,14 +122,29 @@ def Product_detail(request, category_slug, product_slug):
   products = Product.objects.filter(category = single_product.category)
   print(cart_items, "Hellow lkajkasf")
   categories = Category.objects.all()
+  try: 
+    if request.method == 'POST':
+    
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+        rating = request.POST['rating']
+        
+        ProductReview.objects.create(user=request.user, product= single_product, user_name = name, email = email, review = message, rating=rating)
+        messages.success(request, "Successfully Rating add this product.")
+  except:
+    messages.error(request, "Error")
+  rating = ProductReview.objects.all()
   context = {
+    'rating':rating,
     'single_product':single_product,
     'quantity':quantity,
     'cart_item':cart_items,
     'products':products,
     'categories':categories,
   }
-  print(cart_items)
+  
+  
   return render(request, 'product_details.html', context)
 
 def search(request):
@@ -183,4 +198,15 @@ def search(request):
   return render(request, 'store.html', context)
 
 
-
+def ProductRationView(request):
+  if request.method == 'POST':
+   
+      name = request.POST['name']
+      email = request.POST['email']
+      message = request.POST['message']
+      rating = request.POST['rating']
+      print(name, email, message, rating, product_id)
+      ProductReview.objects.create(user=request.user, product= product_id, user_name = name, email = email, review = message, rating=rating)
+      
+    
+  return render(request, 'product_details.html')

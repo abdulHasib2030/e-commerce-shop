@@ -7,6 +7,7 @@
 
 <!-- Single Product Start -->
 <div class="container-fluid py-5 " style="margin-top: 120px;">
+    {% include "messages.html" %}
     <div class="container py-5">
         <div class="row g-4 mb-5">
             <div class="col-lg-8 col-xl-9">
@@ -23,7 +24,7 @@
                         <p class="mb-3">Category: {{single_product.category.category_name}}</p>
                         <h5 class="fw-bold mb-3">৳{{single_product.main_price}} </h5>
                         <div class="d-flex mb-4">
-                           <strike>৳{{single_product.price}}</strike> 
+                            <strike>৳{{single_product.price}}</strike>
                             <!-- <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star text-secondary"></i>
@@ -32,7 +33,7 @@
                         </div>
 
                         <div class="input-group quantity mb-5" style="width: 100px;">
-                           In Stock ({{single_product.stock}})
+                            In Stock ({{single_product.stock}})
                         </div>
 
 
@@ -46,57 +47,68 @@
                                 <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
                                     id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
                                     aria-controls="nav-about" aria-selected="true">Description</button>
+                                    
+                                      
+                              
                                 <button class="nav-link border-white border-bottom-0" type="button" role="tab"
                                     id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
-                                    aria-controls="nav-mission" aria-selected="false">Reviews</button>
+                                    aria-controls="nav-mission" aria-selected="false">Reviews</button>      
                             </div>
                         </nav>
                         <div class="tab-content mb-5">
                             <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
                                 <p>{{single_product.description}}</p>
-                               
+
                             </div>
                             <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                                {% for k in rating %}
+                       
                                 <div class="d-flex">
-                                    <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                        style="width: 100px; height: 100px;" alt="">
+                            
                                     <div class="">
-                                        <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                        <p class="mb-2" style="font-size: 14px;">{{k.created_at}}</p>
                                         <div class="d-flex justify-content-between">
-                                            <h5>Jason Smith</h5>
-                                            <div class="d-flex mb-3">
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star"></i>
+                                            <h5>{{k.user_name}}</h5>
+                                            <div class="d-flex mb-3" style="float: right;">
+                                                {% if k.rating == 1 %}
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  {% elif k.rating == 2%}
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  {% elif k.rating == 3%}
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  {% elif k.rating == 4 %}
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star"></i>
+                                                {% else %}
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  <i class="fa fa-star text-secondary"></i>
+                                                  
+                                                {% endif %}
+                                                
                                             </div>
                                         </div>
-                                        <p>The generated Lorem Ipsum is therefore always free from repetition injected
-                                            humour, or non-characteristic
-                                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
+                                        <p>{{k.review}} </p>
                                     </div>
                                 </div>
-                                <div class="d-flex">
-                                    <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                        style="width: 100px; height: 100px;" alt="">
-                                    <div class="">
-                                        <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                        <div class="d-flex justify-content-between">
-                                            <h5>Sam Peters</h5>
-                                            <div class="d-flex mb-3">
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <p class="text-dark">The generated Lorem Ipsum is therefore always free from
-                                            repetition injected humour, or non-characteristic
-                                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                    </div>
-                                </div>
+                                   {% endfor %}
                             </div>
                             <div class="tab-pane" id="nav-vision" role="tabpanel">
                                 <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor
@@ -107,22 +119,27 @@
                             </div>
                         </div>
                     </div>
-                    <form action="#">
-                        <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+                    {% if request.user.is_authenticated %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <h4 class="mb-5 fw-bold">Reviews and Ratings
+                        </h4>
                         <div class="row g-4">
                             <div class="col-lg-6">
                                 <div class="border-bottom rounded">
-                                    <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
+                                    <input type="text" class="form-control border-0 me-4" name="name"
+                                        placeholder="Your Name *">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="border-bottom rounded">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                    <input type="email" class="form-control border-0" name="email"
+                                        placeholder="Your Email *">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="border-bottom rounded my-4">
-                                    <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
+                                    <textarea name="message" id="" class="form-control border-0" cols="30" rows="8"
                                         placeholder="Your Review *" spellcheck="false"></textarea>
                                 </div>
                             </div>
@@ -131,19 +148,27 @@
                                     <div class="d-flex align-items-center">
                                         <p class="mb-0 me-3">Please rate:</p>
                                         <div class="d-flex align-items-center" style="font-size: 12px;">
-                                            <i class="fa fa-star text-muted"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                            <select name="rating" class="form-control " style="width: 100%;">
+                                                <!-- <option selected="selected">Select </option> -->
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-                                        Post Comment</a>
+                                    <button class="btn border border-secondary text-primary rounded-pill px-4 py-3"
+                                        type="submit">Post Comment</button>
+
                                 </div>
                             </div>
                         </div>
+
                     </form>
+
+                    {% endif %}
+
                 </div>
             </div>
 
@@ -342,11 +367,12 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                             height:56px;">{{i.product_name}}</h4>
-                           
+
                             <div class="d-flex justify-content-between flex-lg-wrap">
                                 <p class="text-dark  fw-bold">৳{{i.main_price}}</p>
                                 <strike>
-                                <p class=" " style="color: black;">৳{{i.price}}</p></strike>
+                                    <p class=" " style="color: black;">৳{{i.price}}</p>
+                                </strike>
                                 <a href="{% url 'add_product_detail_cart' single_product.id %}"
                                     class="btn border border-secondary rounded-pill  mb-5" style="color: #86469C;"><i
                                         class="fa fa-shopping-bag me-2 " style="color:#86469C"></i> Add to cart</a>

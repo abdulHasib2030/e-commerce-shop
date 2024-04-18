@@ -3,6 +3,7 @@ from category.models import Category
 from sellerAccount.models import sellerAccount
 from django.utils.text import slugify
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 SIZE = (
@@ -28,8 +29,7 @@ class Product(models.Model):
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
   created_date = models.DateTimeField(auto_now_add= True)
   modified_date = models.DateTimeField(auto_now= True)
-  discount_price = models.IntegerField(null=True)
-  
+  discount_price = models.IntegerField(null=True) 
   size = models.ManyToManyField(Size,  null=True)
   
   def __str__(self):
@@ -52,3 +52,12 @@ class Product(models.Model):
     self.slug = slugify(self.product_name)
     super(Product, self).save(*args, **kwargs)
 
+class ProductReview(models.Model):
+  user = models.ForeignKey(User, on_delete= models.CASCADE)
+  product = models.ForeignKey(Product, on_delete= models.CASCADE)
+  user_name = models.CharField(max_length= 300)
+  email = models.EmailField()
+  review = models.TextField(10000)
+  rating = models.IntegerField()
+  created_at = models.DateField(auto_now_add=True, null=True)
+  
