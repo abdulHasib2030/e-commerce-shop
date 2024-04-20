@@ -41,6 +41,7 @@ class BillingDetails(models.Model):
   quantity = models.CharField(max_length = 200, null=True)
   user = models.ForeignKey(User, on_delete= models.CASCADE, null=True)
   created_at = models.DateField(auto_now_add=True, null=True)
+  order_id = models.CharField(max_length= 20, null=True)
   
   sub_total = models.IntegerField(null=True)
    

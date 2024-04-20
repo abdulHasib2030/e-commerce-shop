@@ -1,0 +1,67 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% block  content %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5> Order List.</h5>
+    
+            </div>
+    
+    
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+    
+              <div class="row">
+    
+              </div>
+              <!-- Table row -->
+              <div class="row">
+    {% for i in order %}
+                <h5 >Order id: {{i.order_id}}     | </h5>
+                <h5>User: {{i.first_name}} {{i.last_name}}    | </h5>
+                <h5>Created At: {{i.created_at}}</h5>
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>PRODUCT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                 
+                      {% for j, k in lstt %}
+                      <tr>
+                        <td>{{j}}</td>
+                        <td>{{k}}</td>
+                      </tr>
+                      {% endfor %}
+                        
+                    </tbody>
+                  </table>
+                </div>
+                
+                <!-- /.col -->
+                {% endfor %}
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.col -->
+        <!-- <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active">Dashboard v1</li>
+    </ol>
+  </div> -->
+        <!-- /.col -->
+      </div><!-- /.row -->
+      {% include "messages.html" %}
+    </div><!-- /.container-fluid -->
+  </div>
+{% endblock content %}

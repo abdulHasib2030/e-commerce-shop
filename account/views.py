@@ -5,8 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from product.models import Product
-from django.core import serializers
+from product.models import *
 from category.models import Category
 from cart.models import *
 from django.contrib.sites.shortcuts import get_current_site
@@ -15,7 +14,6 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-from cart.models import CartItem, Cart, BillingDetails
 
 # from cart.views import _cart_id
 
@@ -27,6 +25,7 @@ def _cart_id(request):
 # Create your views here.
 def home(request):
   products = Product.objects.all()
+  review = ProductReview.objects.all()
   quantity = 0
   if request.user.is_authenticated:
     cart_items = CartItem.objects.filter(user=request.user).exists()
@@ -54,16 +53,27 @@ def home(request):
   categories = Category.objects.all()
   fashion_category = Category.objects.get(category_name = "Fashion")
   gadget_category = Category.objects.get(category_name = "Gadget & Gear")
+  sports = Category.objects.get(category_name = "Sports")
+  home = Category.objects.get(category_name = "Home & Lifestyle")
   fashion = Product.objects.filter(category= fashion_category)
   gadget = Product.objects.filter(category = gadget_category)
+  sports = Product.objects.filter(category = sports)
+  home = Product.objects.filter(category = home)
+  for i in home:
+    print(i.category, "Hello world")
   context = {
     'products':products,
     'quantity': quantity,
     'categories': categories,
     'fashion':fashion,
     'gadget':gadget,
+    'review':review,
+    'sports':sports,
+    'home':home,
   }
+  for i in review:
     
+    print(i.user_name)
   return render(request, 'home.html', context)
 
 ########## User Registration ###########

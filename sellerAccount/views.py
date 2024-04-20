@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from sellerAccount.models import sellerAccount, otpToken
+from sellerAccount.models import sellerAccount
 from sellerAccount.forms import *
 from django.core.mail import send_mail
 import random
@@ -9,8 +9,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib import messages
 from category.models import Category
 from product.models import Product, Size
-from cart.models import Cart, CartItem
-
+from cart.models import *
+from cart.views import _cart_id
 
 # Create your views here.
 def sellerAccountView(request):
@@ -55,7 +55,7 @@ def sellerAccountView(request):
       
       otp = 1234
       mess = f'''Hello {owner_name} 
-Your Seller Account Confirm OTP Code {link}{uid}
+Your Seller Account Confirm Link {link}{uid}
   
   
 Your Business name: {business_name}
@@ -121,24 +121,54 @@ def sellerLogin(request):
     business_number = request.POST['business_number']
     password = request.POST['password']
     try:
-      seller_user = sellerAccount.objects.get(phone = business_number, password = password)
+      seller_user = sellerAccount.objects.get(phone = business_number, password = password, is_active = True)
       return redirect('dashboard', seller_user.slug)
       # return render(request, 'base_dashboard.html', {'seller_user':seller_user})
     except sellerAccount.DoesNotExist:
-      return HttpResponse("Information Invalid.")
+      messages.success(request, "Invalid login credentials ")
+      return redirect('seller_login')
     # if user:
     #   return HttpResponse("Successfully Seller Login")
     # else:
     #   return HttpResponse("Information Invalid.")
-    print(business_name, password)
   
   return render(request, 'login.html', {'quantity':quantity})      
 
 def sellerDashboard(request, owner_name):
   print(owner_name)
+  order = BillingDetails.objects.filter(product__seller_account__slug = owner_name)
+  lst = []
+  qu = []
+  for i in order:
+    tem = i.quantity.split()
+    lst.append((i.product.filter(seller_account__slug = owner_name)))
+    for j in i.product.filter(seller_account__slug = owner_name):
+      ll = 0
+      for k in i.product.all():
+        if k.product_name == j.product_name:
+          qu.append(tem[ll])
+        ll += 1
+  tem1 = []
+  tem2 = []
+  for i in lst:
+    for j, k in zip(i, qu):
+      tem1.append(j)
+      tem2.append(k)
   seller = sellerAccount.objects.get(slug = owner_name)
-  
-  return render(request, 'base_dashboard.html', {'seller_user':seller})
+  # for i in lst:
+  #   for j in i:
+  #     print(j.price)
+  #   print()
+  tem3 = zip(tem1, tem2)
+  print(tem3)
+  context = {
+    'seller_user': seller,
+    'order':order,
+    'lst':lst,
+    'qu':qu,
+    'lstt': tem3,
+  }
+  return render(request, 'dashboard/order_lst.html', context)
 
 def categoryShow(request, owner_name):
   print(id, "HEllo world")
@@ -155,7 +185,8 @@ def categoryShow(request, owner_name):
     'category': category,
     'len': len(category),
     'lst':lst,
-    'seller_user':seller
+    'seller_user':seller,
+    
   }
   return render(request, 'dashboard/category.html', context)
 
@@ -231,5 +262,14 @@ def addProduct(request, owner_name):
     'seller_user': seller,
   }
   return render(request, 'dashboard/add_product.html', context)
-  
 
+def orderList(request, owner_name ):
+  seller = sellerAccount.objects.get(slug = owner_name)
+
+  order = BillingDetails.objects.all()
+  for i in order:
+    print(i.first_name)
+  context = {
+    'seller_user':seller,
+  }
+  return render(request, "dashboard/order_lst.html", context)

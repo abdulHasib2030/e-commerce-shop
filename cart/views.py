@@ -246,8 +246,8 @@ def checkOutView(request, coupon):
     
     
     if first_name == "" or last_name == "" or address == "" or town_city == "" or country == "" or len(str(zipcode)) < 1 or len(str(mobile))  > 11 or len(str(mobile)) < 11 or str(email_address).find('@') == -1:
-      messages.success(request, "You not provided all information in billing.")
-      return redirect('checkout')
+      messages.success(request, "You are not provided all information in billing.")
+      return redirect('checkout', 100)
     else:
       
       bill = BillingDetails.objects.create(first_name=first_name, last_name=last_name, address = address, town_city=town_city, country=country, zipcode=zipcode, mobile = mobile, email_address = email_address, note = note)
@@ -264,21 +264,28 @@ def checkOutView(request, coupon):
       bill.sub_total = total
       bill.quantity = quantity
       bill.user = request.user
-      bill.save()
       
       if coupon:
         FirstOrderCoupon.objects.create(user = request.user, available = True)
       cart_item.delete()
       order_id = "thaj"
       order_id += str(request.user.id) + str(random.randint(1,1000))
-      try:
-        Order.objects.get(order_id = order_id)
-        Order.objects.create(order_id = order_id + str(random.randint(1,1000), user = request.user))
-      except:
-        Order.objects.create(order_id = order_id, user = request.user)
 
       
-      return render(request, 'order_success.html')
+      try:
+        Order.objects.get(order_id = order_id)
+        bill.order_id = order_id
+        bill.save()
+        Order.objects.create(order_id = order_id + str(random.randint(1,1000), user = request.user))
+      except:
+        bill.order_id = order_id
+        bill.save()
+        Order.objects.create(order_id = order_id, user = request.user)
+        
+
+
+      
+      return render(request, 'order_success.html', {"quantity":0})
   total, subtotal = 0, 0
   for i in cart_item:
     total += i.quantity * i.product.main_price()

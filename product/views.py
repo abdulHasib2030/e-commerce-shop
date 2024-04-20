@@ -117,7 +117,7 @@ def Product_detail(request, category_slug, product_slug):
     cart_items = None
     cart_items = CartItem.objects.get( cart=cart)
   except Exception as e:
-    messages.success(request, "error")
+    pass
   print(quantity)
   products = Product.objects.filter(category = single_product.category)
   print(cart_items, "Hellow lkajkasf")
